@@ -1,0 +1,1 @@
+from NER.Bern.bern2 import *

@@ -1,0 +1,51 @@
+{
+    "path": {
+        "abner": " ",
+        "reach": " ",
+        "lstm": "sources/lstm",
+        "banner": "sources/banner",
+        "tees": "sources/tees",
+        "sparser": "sources/tees",
+        "bioner":"sources\\bioner",
+        "huner":"",
+        "bern2":"D:\\bern_resources\\BERN2\\bern_app\\resources"
+    },
+
+
+    "url": {
+      "abner": "http://127.0.0.1:9000",
+      "reach": "http://127.0.0.1:8123",
+      "lstm": " ",
+      "banner": " ",
+      "tees": " ",
+      "sparser": " ",
+      "bioner":" ",
+      "huner":"http://127.0.0.1:4031",
+      "bern2":"http://127.0.0.1:5000"
+      
+    },
+
+    "ner": {
+        "abner": true,
+        "reach": true,
+        "lstm": true,
+        "banner": true,
+        "tees": true,
+        "sparser": true,
+        "bioner":true,
+        "huner":true,
+        "bern2":true
+    },
+    "is_normalizer": {
+      "abner": false,
+      "reach": false,
+      "lstm": false,
+      "banner": false,
+      "tees": false,
+      "sparser": false,
+      "bioner":false,
+      "huner":false,
+      "bern2":true
+    }
+  }
+  

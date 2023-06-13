@@ -1,0 +1,24 @@
+# Ignore .ipynb_checkpoints
+.ipynb_checkpoints/
+
+# Ignore __pycache__ directories
+__pycache__/
+
+# Ipynb
+*.ipynb
+
+# Ignore Python bytecode files
+*.pyc
+*.pyo
+*.pyd
+
+# Ignore IDE-specific files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.pydevproject
+
+# Ignore system-specific files
+.DS_Store
+Thumbs.db

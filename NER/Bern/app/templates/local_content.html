@@ -1,0 +1,109 @@
+<div class="py-4">
+    <h3>Installing BERN2</h3>
+</div>
+<div class="py-2">
+    You first need to install BERN2 and its dependencies.
+</div>
+<div class="py-2">
+    <pre>
+# Install torch with conda (please check your CUDA version)
+conda create -n bern2 python=3.7
+conda activate bern2
+conda install pytorch==1.9.0 cudatoolkit=10.2 -c pytorch
+conda install faiss-gpu libfaiss-avx2 -c conda-forge
+
+# Check if cuda is available
+python -c "import torch;print(torch.cuda.is_available())"
+
+# Install BERN2
+git clone git@github.com:mjeensung/bern2.git
+cd bern2
+pip install -r requirements.txt
+</pre>
+</div>
+<div class="py-2">
+    (Optional) If you want to use mongodb as a caching database, you need to install and run it.
+</div>
+<div class="py-2">
+    <pre>
+# https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/#install-mongodb-community-edition-using-deb-packages
+sudo systemctl start mongod
+sudo systemctl status mongod
+</pre>
+</div>
+<div class="py-2">
+    Then, you need to download resources (e.g., external modules or dictionaries) for running BERN2. 
+    Note that you will need 70GB of free disk space. 
+    If the link below does not work, please download the resources <a href="https://drive.google.com/file/d/1BtCA_DDiASl8Qa17ybAnmvdqp4tuc0nN/view?usp=sharing">here</a>.
+</div>
+<div class="py-2">
+    <pre>
+wget http://nlp.dmis.korea.edu/projects/bern2/resources_v1.1.tar.gz
+tar -zxvf resources_v1.1.tar.gz
+rm -rf resources_v1.1.tar.gz
+# install CRF
+cd resources/GNormPlusJava/CRF
+./configure --prefix="$HOME"
+make
+make install
+cd ../../..
+</pre>
+</div>
+<hr>
+<div class="py-4">
+    <h3>Running BERN2</h3>
+</div>
+<div class="py-2">
+    The following command runs BERN2.
+</div>
+<div class="py-2">
+    <pre>
+export CUDA_VISIBLE_DEVICES=0
+cd scripts
+bash run_bern2.sh
+</pre>
+</div>
+<div class="py-2">
+    (Optional) To restart BERN2, you need to run the following commands.
+</div>
+<div class="py-2">
+<pre>
+export CUDA_VISIBLE_DEVICES=0
+cd scripts
+bash stop_bern2.sh
+bash start_bern2.sh
+</pre>
+</div>
+<div class="py-4">
+    <h3>Use BERN2</h3>
+</div>
+<div class="py-2">
+    After successfully running BERN2 in your local environment, you can access it via RESTful API. 
+    Except for the url (use http://localhost:8888 instead of http://bern2.korea.ac.kr), the usage of the local installation is exactly the same as that of the <a href="#api_content" class="nav-link active" data-toggle="tab">web service</a>.
+</div>
+<div class="py-2">
+    <p class="font-weight-bold">Plain Text as Input</p>
+    <pre>
+import requests
+
+def query_plain(text, url="http://localhost:8888/plain"):
+    return requests.post(url, json={'text': text}).json()
+
+if __name__ == '__main__':
+    text = "Autophagy maintains tumour growth through circulating arginine."
+    print(query_plain(text))
+</pre>
+</div>
+<div class="py-2">
+    <p class="font-weight-bold">PubMed ID (PMID) as Input</p>
+    <pre>
+import requests
+
+def query_pmid(pmids, url="http://localhost:8888/pubmed"):
+    return requests.get(url + "/" + ",".join(pmids)).json()
+
+if __name__ == '__main__':
+    pmids = ["30429607", "29446767"]
+    print(query_pmid(pmids))
+</pre>
+</div>
