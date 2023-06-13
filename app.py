@@ -7,15 +7,16 @@ from NER.Bern2 import Bern2
 from NER.Bioner import Bioner
 from NER.Huner import Huner
 from NER.Reach import Reach
+from NER.Bern2server import Bern2server
 
 app = Flask(__name__)
 
 ### Instansiating classes
 abner = Abner()
-
 ### this can be processed either through direct source or by API
 bern2 = Bern2() ## Need to put huner in docker as well
 bioner = Bioner()
+bern2server = Bern2server()
 reach = Reach()
 huner = Huner() ## HunerWeird loading, it loads the model multiple times and brea
 ## in middle and researt the server, better to use docker image of Huner server
@@ -61,6 +62,13 @@ def annotate():
             ##### ABNER NER ######
             Abner_extracted_entites = abner(input_text)
             return [Abner_extracted_entites,input_text]
+        
+        elif model_type == 6: ### bern2 server
+            print("Processing through BERN2 server")
+
+            bern2_extracted_entites = bern2server(input_text)
+            return [bern2_extracted_entites,input_text]
+
 
         elif model_type == 1:
 
